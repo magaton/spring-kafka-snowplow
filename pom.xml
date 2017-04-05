@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.magaton</groupId>
+  <artifactId>spring-kafka-snowplow</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+
+  <name>spring-kafka-snowplow</name>
+  <description>Spring Kafka Consumer Of Snowplow Thrift Messages</description>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.5.2.RELEASE</version>
+  </parent>
+
+  <properties>
+    <java.version>1.8</java.version>
+    <spring-kafka.version>1.1.2.RELEASE</spring-kafka.version>
+    <libthrift.version>0.10.0</libthrift.version>
+    <collector-payload-1.version>0.0.0</collector-payload-1.version>
+  </properties>
+
+  <dependencies>
+    <!-- spring-boot -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- spring-kafka -->
+    <dependency>
+      <groupId>org.springframework.kafka</groupId>
+      <artifactId>spring-kafka</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.kafka</groupId>
+      <artifactId>spring-kafka-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+   <dependency>
+	  <groupId>org.apache.thrift</groupId>
+	  <artifactId>libthrift</artifactId>
+      <version>${libthrift.version}</version>
+	</dependency>
+	<dependency>
+	   <groupId>com.snowplowanalytics</groupId>
+	  <artifactId>collector-payload-1</artifactId>
+	  <version>0.0.0</version>
+	  <exclusions>
+	    <exclusion>
+	      <artifactId>scala-library</artifactId>
+	      <groupId>org.scala-lang</groupId>
+	    </exclusion>
+	  </exclusions>
+	</dependency>
+	
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- spring-boot-maven-plugin -->
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      
+    </plugins>
+  </build>
+  <repositories>
+ <repository>
+          <id>com.snowplowanalytics</id>
+          <name>SnowPlow Analytics</name>
+          <url>http://maven.snplow.com/releases</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+  </repositories>
+</project>
