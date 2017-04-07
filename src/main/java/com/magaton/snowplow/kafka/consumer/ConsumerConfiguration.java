@@ -20,6 +20,7 @@ public class ConsumerConfiguration {
 
   @Value("${kafka.servers.bootstrap}")
   private String bootstrapServers;
+  
 
   @Bean
   public Map<String, Object> consumerConfigs() {
@@ -28,6 +29,7 @@ public class ConsumerConfiguration {
     props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
     props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ThriftDeserializer.class);
     props.put(ConsumerConfig.GROUP_ID_CONFIG, "snowplow");
+    props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "100");
 
     return props;
   }
@@ -42,9 +44,10 @@ public class ConsumerConfiguration {
   public ConcurrentKafkaListenerContainerFactory<String, CollectorPayload> kafkaListenerContainerFactory() {
     ConcurrentKafkaListenerContainerFactory<String, CollectorPayload> factory =
         new ConcurrentKafkaListenerContainerFactory<>();
-    factory.setConsumerFactory(consumerFactory());
-
-    return factory;
+    factory.setBatchListener(true);
+	factory.setConcurrency(4);
+	factory.setConsumerFactory(consumerFactory());
+	return factory;
   }
 
   @Bean

@@ -1,0 +1,15 @@
+server:
+    port: 8100
+
+# list of host:port pairs used for establishing the initial connections to the Kakfa cluster
+kafka:
+    servers:
+          bootstrap: localhost:9092
+# snowplow topic
+    topic: snowplow-data
+
+logging:
+    level: 
+          com.magaton.snowplow: DEBUG
+
+
